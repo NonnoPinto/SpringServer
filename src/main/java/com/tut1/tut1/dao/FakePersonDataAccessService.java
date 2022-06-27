@@ -36,12 +36,12 @@ public class FakePersonDataAccessService implements PersonDao{
     }
 
     @Override
-    public int updatePersonById(UUID id, Person person) {
+    public int updatePersonById(UUID id, Person update) {
         return selectPersonById(id)
-            .map(p->{
+            .map(person ->{
                 int indexOfPersonToDelete = DB.indexOf(person);
                 if (indexOfPersonToDelete >= 0){
-                    DB.set(indexOfPersonToDelete, person);
+                    DB.set(indexOfPersonToDelete, new Person(id, update.getName()));
                     System.out.println("Ho sostituito la persona con id " + id);
                     return 1;
                 }
